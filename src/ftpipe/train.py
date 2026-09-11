@@ -1,8 +1,4 @@
-"""QLoRA fine-tuning with PEFT + TRL, tracked in MLflow.
-
-Known-good with unsloth (2024-2025) + trl>=0.12. If a newer TRL renames SFTConfig fields or
-the `tokenizer=` argument of SFTTrainer, adjust the two spots marked "TRL API spot".
-"""
+"""QLoRA fine-tuning with PEFT + TRL, tracked in MLflow."""
 
 from __future__ import annotations
 
@@ -85,12 +81,14 @@ def _quick_task_eval(model, tok, rows: list[dict]) -> dict:
 def run(cfg: TrainConfig) -> dict:
     _set_seed(cfg.seed)
 
+    # must import before trl/transformers or Unsloth's patching breaks (unsloth#2797)
+    from unsloth import FastLanguageModel, is_bfloat16_supported  # noqa: I001
+
     import mlflow
     import torch
     from datasets import Dataset
     from transformers import EarlyStoppingCallback
     from trl import SFTConfig, SFTTrainer
-    from unsloth import FastLanguageModel, is_bfloat16_supported
 
     proc = Path(cfg.processed_dir)
     train_rows = _read_jsonl(proc / "train.jsonl")
@@ -105,21 +103,19 @@ def run(cfg: TrainConfig) -> dict:
         load_in_4bit=True,
     )
 
-    # Work around a known Unsloth/transformers mismatch: on some versions Unsloth's
-    # "legacy tokenizer" compatibility wrapper reports a placeholder eos_token
-    # ('<EOS_TOKEN>') that isn't a real vocabulary entry, which TRL's SFTTrainer then
-    # rejects. Recover the real one from the model's own config, which isn't affected.
+    # resolve a real eos token to override Unsloth's patched sentinel (unsloth#2797)
     vocab = tok.get_vocab()
-    if tok.eos_token not in vocab:
-        real_eos_id = getattr(model.config, "eos_token_id", None)
-        if real_eos_id is None:
-            real_eos_id = getattr(getattr(model, "generation_config", None), "eos_token_id", None)
-        if isinstance(real_eos_id, list):
-            real_eos_id = real_eos_id[0]
-        if real_eos_id is not None:
-            real_eos_token = tok.convert_ids_to_tokens(real_eos_id)
-            print(f"[train] fixing broken eos_token {tok.eos_token!r} -> {real_eos_token!r}")
-            tok.eos_token = real_eos_token
+    resolved_eos = tok.eos_token if (tok.eos_token and tok.eos_token in vocab) else None
+    if resolved_eos is None:
+        eos_id = getattr(model.config, "eos_token_id", None)
+        if eos_id is None:
+            eos_id = getattr(getattr(model, "generation_config", None), "eos_token_id", None)
+        if isinstance(eos_id, (list, tuple)):
+            eos_id = eos_id[0]
+        if eos_id is not None:
+            resolved_eos = tok.convert_ids_to_tokens(eos_id)
+            tok.eos_token = resolved_eos
+    print(f"[train] resolved eos_token={resolved_eos!r}")
 
     model = FastLanguageModel.get_peft_model(
         model,
@@ -143,7 +139,8 @@ def run(cfg: TrainConfig) -> dict:
 
     args = SFTConfig(
         dataset_text_field="text",  # TRL API spot #1
-        max_length=cfg.max_seq_length,  # TRL renamed max_seq_length -> max_length
+        max_length=cfg.max_seq_length,  # trl renamed max_seq_length -> max_length
+        eos_token=resolved_eos,  # override Unsloth's sentinel
         per_device_train_batch_size=cfg.batch_size,
         gradient_accumulation_steps=cfg.grad_accum,
         warmup_ratio=cfg.warmup_ratio,
@@ -171,7 +168,7 @@ def run(cfg: TrainConfig) -> dict:
     )
     trainer = SFTTrainer(
         model=model,
-        processing_class=tok,  # TRL renamed tokenizer= to processing_class=
+        processing_class=tok,
         train_dataset=train_ds,
         eval_dataset=val_ds,
         args=args,
