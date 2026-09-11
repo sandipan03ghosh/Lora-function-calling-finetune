@@ -104,6 +104,23 @@ def run(cfg: TrainConfig) -> dict:
         dtype=None,
         load_in_4bit=True,
     )
+
+    # Work around a known Unsloth/transformers mismatch: on some versions Unsloth's
+    # "legacy tokenizer" compatibility wrapper reports a placeholder eos_token
+    # ('<EOS_TOKEN>') that isn't a real vocabulary entry, which TRL's SFTTrainer then
+    # rejects. Recover the real one from the model's own config, which isn't affected.
+    vocab = tok.get_vocab()
+    if tok.eos_token not in vocab:
+        real_eos_id = getattr(model.config, "eos_token_id", None)
+        if real_eos_id is None:
+            real_eos_id = getattr(getattr(model, "generation_config", None), "eos_token_id", None)
+        if isinstance(real_eos_id, list):
+            real_eos_id = real_eos_id[0]
+        if real_eos_id is not None:
+            real_eos_token = tok.convert_ids_to_tokens(real_eos_id)
+            print(f"[train] fixing broken eos_token {tok.eos_token!r} -> {real_eos_token!r}")
+            tok.eos_token = real_eos_token
+
     model = FastLanguageModel.get_peft_model(
         model,
         r=cfg.lora_r,
