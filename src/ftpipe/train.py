@@ -154,7 +154,7 @@ def run(cfg: TrainConfig) -> dict:
     )
     trainer = SFTTrainer(
         model=model,
-        tokenizer=tok,  # TRL API spot #2 (newer TRL: processing_class=tok)
+        processing_class=tok,  # TRL renamed tokenizer= to processing_class=
         train_dataset=train_ds,
         eval_dataset=val_ds,
         args=args,
