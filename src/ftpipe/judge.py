@@ -1,8 +1,9 @@
 """LLM-as-judge: blind A/B comparison of base vs fine-tuned tool calls.
 
-Optional. Enabled by setting `judge.provider` in configs/eval.yaml to `anthropic` or `openai`
-and providing the matching API key (as a Colab secret / env var). The judge sees the request,
-the tool list, the reference answer, and the two responses in a random order.
+Optional. Enabled by setting `judge.provider` in configs/eval.yaml to `anthropic`, `openai`, or
+`gemini`, and providing the matching API key (as a Colab secret / env var: ANTHROPIC_API_KEY,
+OPENAI_API_KEY, or GOOGLE_API_KEY). The judge sees the request, the tool list, the reference
+answer, and the two responses in a random order.
 """
 
 from __future__ import annotations
@@ -58,6 +59,17 @@ def _call_openai(model: str, prompt: str) -> str:
     return r.choices[0].message.content
 
 
+def _call_gemini(model: str, prompt: str) -> str:
+    from google import genai
+
+    client = genai.Client(api_key=os.environ["GOOGLE_API_KEY"])
+    response = client.models.generate_content(model=model, contents=prompt)
+    return response.text
+
+
+_CALLERS = {"anthropic": _call_anthropic, "openai": _call_openai, "gemini": _call_gemini}
+
+
 def _read(path: Path) -> list[dict]:
     return [json.loads(x) for x in path.read_text(encoding="utf-8").splitlines() if x.strip()]
 
@@ -73,7 +85,7 @@ def run(cfg: EvalConfig) -> dict:
     pairs = [(b, ft[b["id"]]) for b in base if b["id"] in ft][: jc.n_examples]
 
     rng = random.Random(cfg.seed)
-    caller = _call_anthropic if jc.provider == "anthropic" else _call_openai
+    caller = _CALLERS[jc.provider]
     rows, wins_ft, wins_base, ties, sum_base, sum_ft = [], 0, 0, 0, 0, 0
 
     for b, f in pairs:

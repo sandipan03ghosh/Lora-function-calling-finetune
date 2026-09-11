@@ -21,7 +21,7 @@ class DataConfig(BaseModel):
 
 
 class JudgeConfig(BaseModel):
-    provider: Literal["none", "anthropic", "openai"] = "none"
+    provider: Literal["none", "anthropic", "openai", "gemini"] = "none"
     model: str = "claude-3-5-haiku-20241022"
     n_examples: int = 40
 

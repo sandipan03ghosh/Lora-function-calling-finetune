@@ -32,7 +32,7 @@ serve = [
     "accelerate>=0.33",
     "bitsandbytes>=0.50",
 ]
-judge = ["anthropic>=0.34", "openai>=1.40"]
+judge = ["anthropic>=1.5.0", "openai>=3.13.0", "google-genai>=2.23.0,<3.0.0"]
 dev = ["pytest>=8.0", "ruff>=0.5"]
 
 [project.scripts]
