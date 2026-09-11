@@ -36,7 +36,7 @@ def run(
     preds = generate_for(
         model, tok, records, max_new_tokens=cfg.max_new_tokens, batch_size=cfg.batch_size
     )
-    for row, pred in zip(records, preds):
+    for row, pred in zip(records, preds, strict=True):
         row["prediction"] = pred
 
     summary = score_records(records)
