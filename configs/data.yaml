@@ -1,0 +1,11 @@
+# Dataset build config. Runs in Colab:  python -m ftpipe.cli prepare --config configs/data.yaml
+# Downloads the dataset from the HuggingFace Hub into the Colab session. No local install needed.
+dataset_id: Salesforce/xlam-function-calling-60k   # Apache-2.0
+
+max_examples: 1500          # cap on in-distribution rows (train + val + test_id)
+ood_tool_fraction: 0.15     # share of unique tool names held out of training entirely
+ood_test_cap: 200           # max out-of-distribution test rows
+split_ratios: [0.8, 0.1, 0.1]
+min_query_chars: 10
+seed: 42
+processed_dir: data/processed

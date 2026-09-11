@@ -1,0 +1,30 @@
+# python
+__pycache__/
+*.py[cod]
+.venv/
+.env
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+
+# raw + processed data (regenerate with: ftpipe prepare)
+data/raw/
+data/processed/
+
+# experiment tracking + training checkpoints (large / transient)
+mlruns/
+mlartifacts/
+outputs/final/checkpoints/
+outputs/sweep/
+*.zip
+
+# keep these committed (they make the repo runnable + back the results):
+#   outputs/final/best/            the trained LoRA adapter (~30 MB)
+#   outputs/eval/*/summary.json    the numbers behind every claim
+#   outputs/eval/head_to_head.json
+#   outputs/eval/forgetting.json
+!outputs/
+!outputs/final/
+!outputs/final/best/
+!outputs/eval/

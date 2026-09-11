@@ -1,0 +1,21 @@
+# Evaluation config. Runs in Colab:
+#   python -m ftpipe.cli evaluate --config configs/eval.yaml --base <model> [--adapter <path>] --tag <base|finetuned>
+
+benchmarks:
+  - data/processed/test_id.jsonl      # in-distribution held-out test
+  - data/processed/test_ood.jsonl     # APIs whose tool names were held out of training
+  - data/benchmark/handcrafted.jsonl  # hand-written edge cases
+
+max_new_tokens: 512
+batch_size: 8
+seed: 42
+output_dir: outputs/eval
+
+judge:
+  provider: none                      # none | anthropic | openai  (set a key as a Colab secret to enable)
+  model: claude-3-5-haiku-20241022
+  n_examples: 40
+
+forgetting:
+  arc_n: 100
+  hellaswag_n: 100

@@ -1,0 +1,23 @@
+# GPU stack for Colab / Kaggle. The notebook installs it in this order:
+#
+#   !pip install -q unsloth
+#   !pip install -q -r requirements-colab.txt
+#   !pip install -q -e ".[serve]"
+#
+# `unsloth` pulls a matching torch / transformers / bitsandbytes for the runtime, so it goes
+# first and is intentionally left unpinned. The rest are floors, known-good on a Colab T4 as of
+# 2025. If a newer TRL changes the SFTConfig signature or the `tokenizer=` argument, see the two
+# comments marked "TRL API spot" near the top of src/ftpipe/train.py.
+
+unsloth
+torch>=2.6
+trl>=0.12
+peft>=0.13
+accelerate>=0.34
+bitsandbytes>=0.50
+datasets>=3.0
+transformers>=4.51
+mlflow>=3.16.0
+xformers
+sentencepiece
+requests>=2.32.4

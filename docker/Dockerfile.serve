@@ -1,0 +1,32 @@
+# Inference server for the fine-tuned function-calling model.
+#   docker build -f docker/Dockerfile.serve -t ftpipe-serve .
+#   docker run --rm -p 8000:8000 ftpipe-serve
+#
+# The image builds fine even before you've trained anything - it only requires the adapter to
+# exist at CONTAINER START, with a clear error message telling you to train first if it's missing.
+#
+# CPU image (no CUDA) - fine for a demo; slow for load. On a GPU host add --gpus all and set
+# USE_UNSLOTH=1 by overriding the CMD.
+
+FROM python:3.11-slim
+
+WORKDIR /app
+ENV PYTHONDONTWRITEBYTECODE=1 PIP_NO_CACHE_DIR=1
+
+COPY pyproject.toml README.md ./
+COPY src ./src
+RUN pip install ".[serve]"
+
+# Copies whatever exists under outputs/ (at minimum outputs/README.md) so the build never fails
+# on a missing adapter - see the startup check in CMD below instead.
+COPY outputs ./outputs
+
+# Run as a non-root user.
+RUN useradd --create-home --uid 1000 appuser && chown -R appuser:appuser /app
+USER appuser
+
+ENV BASE=unsloth/Llama-3.2-3B-Instruct \
+    ADAPTER=outputs/final/best
+
+EXPOSE 8000
+CMD ["sh", "-c", "test -f \"$ADAPTER/adapter_config.json\" || { echo \"ERROR: no trained adapter found at $ADAPTER - run the Colab notebook to train the model first, then rebuild this image.\"; exit 1; }; python -m ftpipe.cli serve --base $BASE --adapter $ADAPTER --host 0.0.0.0 --port 8000"]
