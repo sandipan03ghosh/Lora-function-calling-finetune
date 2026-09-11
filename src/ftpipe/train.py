@@ -126,7 +126,7 @@ def run(cfg: TrainConfig) -> dict:
 
     args = SFTConfig(
         dataset_text_field="text",  # TRL API spot #1
-        max_seq_length=cfg.max_seq_length,
+        max_length=cfg.max_seq_length,  # TRL renamed max_seq_length -> max_length
         per_device_train_batch_size=cfg.batch_size,
         gradient_accumulation_steps=cfg.grad_accum,
         warmup_ratio=cfg.warmup_ratio,
