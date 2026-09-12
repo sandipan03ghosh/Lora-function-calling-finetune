@@ -40,8 +40,8 @@ instruction_part: "<|start_header_id|>user<|end_header_id|>\n\n"
 response_part: "<|start_header_id|>assistant<|end_header_id|>\n\n"
 
 # hyperparameter sweep: 6 runs on a fast profile (Project 10 asks for >= 3).
-# Vary rank with lr/epochs fixed, then vary lr, then one longer run.
-sweep_max_steps: 120
+# Vary rank with lr/epochs fixed, then vary lr, then one longer run (each combo's own
+# `epochs` governs run length over this subset - no separate step cap).
 sweep_max_examples: 800
 sweep:
   - {lora_r: 8,  lr: 0.0002, epochs: 1}

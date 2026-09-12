@@ -76,7 +76,6 @@ class TrainConfig(BaseModel):
     instruction_part: str = "<|start_header_id|>user<|end_header_id|>\n\n"
     response_part: str = "<|start_header_id|>assistant<|end_header_id|>\n\n"
 
-    sweep_max_steps: int = 120
     sweep_max_examples: int = 800
     sweep: list[dict] = Field(default_factory=list)
 

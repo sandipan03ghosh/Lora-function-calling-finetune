@@ -12,8 +12,8 @@ seed: 42
 output_dir: outputs/eval
 
 judge:
-  provider: none                      # none | anthropic | openai | gemini  (set the matching key as a Colab secret)
-  model: claude-3-5-haiku-20241022    # e.g. claude-3-5-haiku-20241022 | gpt-4o-mini | gemini-2.0-flash
+  provider: gemini                    # none | anthropic | openai | gemini  (set the matching key as a Colab secret)
+  model: gemini-2.0-flash             # e.g. claude-3-5-haiku-20241022 | gpt-4o-mini | gemini-2.0-flash
   n_examples: 40
 
 forgetting:

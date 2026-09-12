@@ -13,6 +13,41 @@ from . import train as train_mod
 from .config import TrainConfig, load_config
 
 
+def _write_reports(results: list[dict], complete: bool) -> None:
+    ranked = sorted(results, key=lambda r: r.get("val_function_name_f1", 0.0), reverse=True)
+
+    Path("reports").mkdir(exist_ok=True)
+    lines = [
+        "# Hyperparameter sweep results",
+        "",
+        "_Fast profile: capped steps + subset of training data. The final model is trained "
+        "separately at full length with the winning config._",
+        "",
+        "_status: IN PROGRESS - partial results, sweep not yet finished_" if not complete else "",
+        "",
+        "| run | rank | lr | epochs | val function-name F1 | val exact-call match | runtime (s) |",
+        "|---|---|---|---|---|---|---|",
+    ]
+    for r in ranked:
+        lines.append(
+            f"| {r['run']} | {r['lora_r']} | {r['lr']} | {r['epochs']} | "
+            f"{r.get('val_function_name_f1', '-')} | {r.get('val_exact_call_match', '-')} | "
+            f"{r.get('runtime_s', '-')} |"
+        )
+    if complete and ranked:
+        best = ranked[0]
+        lines += [
+            "",
+            f"**Winning config:** rank {best['lora_r']}, lr {best['lr']}, epochs {best['epochs']} "
+            f"(val function-name F1 {best.get('val_function_name_f1')}).",
+            "",
+            "Set these in `configs/train.yaml`, then run `ftpipe train` for the full-length model.",
+        ]
+    Path("reports/sweep_results.md").write_text("\n".join(lines), encoding="utf-8")
+    Path("outputs/sweep").mkdir(parents=True, exist_ok=True)
+    Path("outputs/sweep/comparison.json").write_text(json.dumps(ranked, indent=2), encoding="utf-8")
+
+
 def run(cfg: TrainConfig) -> list[dict]:
     combos = cfg.sweep or [
         {"lora_r": 8, "lr": 2e-4, "epochs": 1},
@@ -26,7 +61,7 @@ def run(cfg: TrainConfig) -> list[dict]:
         for key, value in combo.items():
             setattr(run_cfg, key, value)
         run_cfg.lora_alpha = 2 * run_cfg.lora_r
-        run_cfg.max_steps = cfg.sweep_max_steps
+        run_cfg.max_steps = None  # let each combo's own `epochs` govern run length
         run_cfg.train_subset = cfg.sweep_max_examples
         run_cfg.val_eval_n = min(cfg.val_eval_n, 80)
         run_cfg.early_stopping_patience = 10**6  # let short capped runs finish
@@ -45,38 +80,12 @@ def run(cfg: TrainConfig) -> list[dict]:
                 "runtime_s": summary.get("train_runtime_s"),
             }
         )
+        _write_reports(results, complete=False)  # survive a disconnect/interrupt mid-sweep
 
-    results.sort(key=lambda r: r.get("val_function_name_f1", 0.0), reverse=True)
-
-    Path("reports").mkdir(exist_ok=True)
-    lines = [
-        "# Hyperparameter sweep results",
-        "",
-        "_Fast profile: capped steps + subset of training data. The final model is trained "
-        "separately at full length with the winning config._",
-        "",
-        "| run | rank | lr | epochs | val function-name F1 | val exact-call match | runtime (s) |",
-        "|---|---|---|---|---|---|---|",
-    ]
-    for r in results:
-        lines.append(
-            f"| {r['run']} | {r['lora_r']} | {r['lr']} | {r['epochs']} | "
-            f"{r.get('val_function_name_f1', '-')} | {r.get('val_exact_call_match', '-')} | "
-            f"{r.get('runtime_s', '-')} |"
-        )
-    best = results[0]
-    lines += [
-        "",
-        f"**Winning config:** rank {best['lora_r']}, lr {best['lr']}, epochs {best['epochs']} "
-        f"(val function-name F1 {best.get('val_function_name_f1')}).",
-        "",
-        "Set these in `configs/train.yaml`, then run `ftpipe train` for the full-length model.",
-    ]
-    Path("reports/sweep_results.md").write_text("\n".join(lines), encoding="utf-8")
-    Path("outputs/sweep").mkdir(parents=True, exist_ok=True)
-    Path("outputs/sweep/comparison.json").write_text(json.dumps(results, indent=2), encoding="utf-8")
-    print("\n".join(lines))
-    return results
+    _write_reports(results, complete=True)
+    with open("reports/sweep_results.md", encoding="utf-8") as f:
+        print(f.read())
+    return sorted(results, key=lambda r: r.get("val_function_name_f1", 0.0), reverse=True)
 
 
 def main(config_path: str) -> list[dict]:
