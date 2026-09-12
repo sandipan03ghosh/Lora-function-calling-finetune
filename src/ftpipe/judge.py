@@ -12,6 +12,7 @@ import json
 import os
 import random
 import re
+import time
 from pathlib import Path
 
 from .config import EvalConfig, load_config
@@ -100,12 +101,23 @@ def run(cfg: EvalConfig) -> dict:
             a=a_txt,
             b=b_txt,
         )
-        try:
-            raw = caller(jc.model, prompt)
-            verdict = json.loads(re.search(r"\{.*\}", raw, re.DOTALL).group(0))
-        except Exception as exc:  # pragma: no cover
-            print(f"[judge] skipped one example ({exc})")
+        verdict = None
+        for attempt in range(5):
+            try:
+                raw = caller(jc.model, prompt)
+                verdict = json.loads(re.search(r"\{.*\}", raw, re.DOTALL).group(0))
+                break
+            except Exception as exc:  # pragma: no cover
+                if "RESOURCE_EXHAUSTED" in str(exc) or "429" in str(exc):
+                    wait = 20 * (attempt + 1)
+                    print(f"[judge] rate limited, waiting {wait}s (attempt {attempt + 1}/5)")
+                    time.sleep(wait)
+                    continue
+                print(f"[judge] skipped one example ({exc})")
+                break
+        if verdict is None:
             continue
+        time.sleep(13)  # free-tier gemini/anthropic/openai limits are a few requests/minute
 
         ft_score = verdict["score_a"] if swap else verdict["score_b"]
         base_score = verdict["score_b"] if swap else verdict["score_a"]
