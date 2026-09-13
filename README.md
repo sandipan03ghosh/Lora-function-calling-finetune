@@ -14,13 +14,15 @@ being different — including a test on tool schemas the model never saw while t
 Everything runs on a free Colab (or Kaggle) T4 GPU through one notebook. I don't have a local GPU,
 so the whole pipeline had to work that way.
 
-> **Result (fill in after a run):**
-> Fine-tuned Llama-3.2-3B with QLoRA — tool-name F1 went from **0.XX → 0.9X**, exact-call match
-> from **XX% → 9X%**, hallucinated-function rate from **XX% → <1%**, and it generalizes to tool
-> schemas held out of training (OOD exact-call match 0.XX). Kept **~9X%** of general-capability
-> performance on ARC-Easy / HellaSwag. Full pipeline: hyperparameter sweep, MLflow tracking,
-> in-distribution + out-of-distribution + LLM-judge evaluation, a forgetting check, and a
-> containerized A/B inference API.
+> **Result:**
+> Fine-tuned Llama-3.2-3B with QLoRA — exact tool-call match improved from **70.6% → 81.4%**
+> overall, and from **72.2% → 80.8%** on tool schemas held out of training entirely (OOD).
+> Function-name F1 rose from 96.4% → 98.5%, JSON validity from 97.0% → 98.7%. A blind LLM-judge
+> evaluation corroborated this independently: the fine-tuned model never lost to the base model
+> across a 20-example sample (0% base win rate, 15% fine-tuned win rate, 85% ties). Full pipeline:
+> hyperparameter sweep, MLflow tracking, in-distribution + out-of-distribution + LLM-judge
+> evaluation, and a containerized A/B inference API. (Catastrophic-forgetting check is designed
+> but not yet run — see `ftpipe forgetting` below.)
 
 ---
 

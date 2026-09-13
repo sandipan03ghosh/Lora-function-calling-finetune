@@ -13,7 +13,7 @@ output_dir: outputs/eval
 
 judge:
   provider: gemini                    # none | anthropic | openai | gemini  (set the matching key as a Colab secret)
-  model: gemini-2.5-flash             # e.g. claude-3-5-haiku-20241022 | gpt-4o-mini | gemini-2.5-flash
+  model: gemini-flash-lite-latest     
   n_examples: 20
 
 forgetting:
