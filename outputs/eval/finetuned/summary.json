@@ -1,0 +1,48 @@
+{
+  "overall": {
+    "n": 370,
+    "function_name_f1": 0.9807,
+    "function_name_precision": 0.9876,
+    "function_name_recall": 0.9739,
+    "exact_call_match": 0.8006,
+    "arg_value_accuracy": 0.8416,
+    "json_validity": 0.9838,
+    "hallucinated_function_rate": 0.0054,
+    "over_calling_rate": 0.0054
+  },
+  "by_split": {
+    "handcrafted": {
+      "n": 20,
+      "function_name_f1": 0.9565,
+      "function_name_precision": 0.9565,
+      "function_name_recall": 0.9565,
+      "exact_call_match": 0.6087,
+      "arg_value_accuracy": 0.8605,
+      "json_validity": 1.0,
+      "hallucinated_function_rate": 0.0,
+      "over_calling_rate": 0.0
+    },
+    "id": {
+      "n": 150,
+      "function_name_f1": 0.9859,
+      "function_name_precision": 0.9879,
+      "function_name_recall": 0.9839,
+      "exact_call_match": 0.8266,
+      "arg_value_accuracy": 0.869,
+      "json_validity": 0.98,
+      "hallucinated_function_rate": 0.0,
+      "over_calling_rate": 0.0067
+    },
+    "ood": {
+      "n": 200,
+      "function_name_f1": 0.9788,
+      "function_name_precision": 0.9893,
+      "function_name_recall": 0.9685,
+      "exact_call_match": 0.7953,
+      "arg_value_accuracy": 0.8207,
+      "json_validity": 0.985,
+      "hallucinated_function_rate": 0.01,
+      "over_calling_rate": 0.005
+    }
+  }
+}

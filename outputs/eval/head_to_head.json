@@ -1,0 +1,248 @@
+{
+  "n_helped": 66,
+  "n_hurt": 20,
+  "helped": [
+    {
+      "id": 47106,
+      "split_kind": "ood",
+      "query": "Fetch a sequence of YouTube Shorts videos in the default language and geographical location.",
+      "gold": "[{\"name\": \"shorts_sequence\", \"arguments\": {}}]",
+      "base": "```json\n[\n  {\n    \"name\": \"shorts_sequence\",\n    \"arguments\": {\n      \"lang\": \"None\",\n      \"geo\": \"None\",\n      \"params\": \"None\"\n    }\n  }\n]\n```\n\nThis response is based on the provided tool's parameters. Since the user has not specified any specific language or geographical location, the `lang` and `geo` arguments are set to their default values (`None`). The `params` argument is also set to its default value (`None`).",
+      "finetuned": "[{\"name\": \"shorts_sequence\", \"arguments\": {}}]"
+    },
+    {
+      "id": 43129,
+      "split_kind": "id",
+      "query": "Find the minimum number of meeting rooms needed to accommodate meetings with time intervals [[1, 5], [2, 8], [3, 10], [4, 12], [5, 15]].",
+      "gold": "[{\"name\": \"min_meeting_rooms\", \"arguments\": {\"intervals\": [[1, 5], [2, 8], [3, 10], [4, 12], [5, 15]]}}]",
+      "base": "```json\n[\n  {\n    \"name\": \"min_meeting_rooms\",\n    \"arguments\": {\n      \"intervals\": \"[[1, 5], [2, 8], [3, 10], [4, 12], [5, 15]]\"\n    }\n  }\n]\n```",
+      "finetuned": "[{\"name\": \"min_meeting_rooms\", \"arguments\": {\"intervals\": [[1, 5], [2, 8], [3, 10], [4, 12], [5, 15]]}}]"
+    },
+    {
+      "id": 43260,
+      "split_kind": "id",
+      "query": "Sort the list of numbers [4.3, 2.8, 5.6, 1.2] in ascending order and the list of numbers [7.3, 6.2, 3.4, 8.9] in descending order. Also, find the 3rd smallest number in the list [10, 20, 30, 40, 50].",
+      "gold": "[{\"name\": \"sort_numbers\", \"arguments\": {\"numbers\": [4.3, 2.8, 5.6, 1.2]}}, {\"name\": \"sort_numbers\", \"arguments\": {\"numbers\": [7.3, 6.2, 3.4, 8.9], \"descending\": true}}, {\"name\": \"find_kth_smallest_number\", \"arguments\": {\"nums\": [10, 20, 30, 40, 50], \"k\": 3}}]",
+      "base": "```json\n[\n  {\"name\": \"sort_numbers\", \"arguments\": {\"numbers\": \"[4.3, 2.8, 5.6, 1.2]\", \"descending\": \"False\"}},\n  {\"name\": \"sort_numbers\", \"arguments\": {\"numbers\": \"[7.3, 6.2, 3.4, 8.9]\", \"descending\": \"True\"}},\n  {\"name\": \"find_kth_smallest_number\", \"arguments\": {\"nums\": \"[10, 20, 30, 40, 50]\", \"k\": \"3\"}}\n]\n```",
+      "finetuned": "[{\"name\": \"sort_numbers\", \"arguments\": {\"numbers\": [4.3, 2.8, 5.6, 1.2], \"descending\": false}}, {\"name\": \"sort_numbers\", \"arguments\": {\"numbers\": [7.3, 6.2, 3.4, 8.9], \"descending\": true}}, {\"name\": \"find_kth_smallest_number\", \"arguments\": {\"nums\": [10, 20, 30, 40, 50], \"k\": 3}}]"
+    },
+    {
+      "id": 59674,
+      "split_kind": "ood",
+      "query": "I need to know the value of 1 CHF in INR, can you help?",
+      "gold": "[{\"name\": \"exchange\", \"arguments\": {\"base\": \"CHF\", \"to\": \"INR\", \"int\": \"1\"}}]",
+      "base": "[\n  {\n    \"name\": \"exchange\",\n    \"arguments\": {\n      \"base\": \"CHF\",\n      \"to\": \"INR\"\n    }\n  }\n]",
+      "finetuned": "[{\"name\": \"exchange\", \"arguments\": {\"base\": \"CHF\", \"to\": \"INR\", \"int\": \"1\"}}]"
+    },
+    {
+      "id": 49435,
+      "split_kind": "ood",
+      "query": "Count the occurrences of each element in the list [1, 2, 3, 2, 1, 3, 2, 1].",
+      "gold": "[{\"name\": \"count_occurrences\", \"arguments\": {\"lst\": [1, 2, 3, 2, 1, 3, 2, 1]}}]",
+      "base": "```json\n[\n  {\n    \"name\": \"count_occurrences\",\n    \"arguments\": {\n      \"lst\": \"[1, 2, 3, 2, 1, 3, 2, 1]\"\n    }\n  }\n]\n```",
+      "finetuned": "[{\"name\": \"count_occurrences\", \"arguments\": {\"lst\": [1, 2, 3, 2, 1, 3, 2, 1]}}]"
+    },
+    {
+      "id": 26912,
+      "split_kind": "id",
+      "query": "Determine the standard deviation of the following set of numbers: [1.2, 2.3, 3.4, 4.5, 5.6].",
+      "gold": "[{\"name\": \"std_deviation\", \"arguments\": {\"numbers\": [1.2, 2.3, 3.4, 4.5, 5.6]}}]",
+      "base": "```json\n[\n  {\n    \"name\": \"std_deviation\",\n    \"arguments\": {\n      \"numbers\": \"[1.2, 2.3, 3.4, 4.5, 5.6]\"\n    }\n  }\n]\n```",
+      "finetuned": "[{\"name\": \"std_deviation\", \"arguments\": {\"numbers\": [1.2, 2.3, 3.4, 4.5, 5.6]}}]"
+    },
+    {
+      "id": 49465,
+      "split_kind": "ood",
+      "query": "Can a person attend all meetings if they have the following time intervals: [(1, 3), (4, 5), (6, 7)]? Also, calculate the number of permutations of 5 elements chosen from a set of 9 elements.",
+      "gold": "[{\"name\": \"can_attend_all_meetings\", \"arguments\": {\"intervals\": [[1, 3], [4, 5], [6, 7]]}}, {\"name\": \"permutation_count\", \"arguments\": {\"n\": 9, \"k\": 5}}]",
+      "base": "```json\n[\n  {\n    \"name\": \"can_attend_all_meetings\",\n    \"arguments\": [\n      {\n        \"intervals\": [\n          [1, 3],\n          [4, 5],\n          [6, 7]\n        ]\n      }\n    ]\n  },\n  {\n    \"name\": \"permutation_count\",\n    \"arguments\": [\n      {\n        \"n\": 9,\n        \"k\": 5\n      }\n    ]\n  }\n]\n```\n\nNote: The `can_attend_all_meetings` function requires a list of meeting time intervals, where each interval is represented as a list of two integers. The `permutation_count` function requires the",
+      "finetuned": "[{\"name\": \"can_attend_all_meetings\", \"arguments\": {\"intervals\": [[1, 3], [4, 5], [6, 7]]}}, {\"name\": \"permutation_count\", \"arguments\": {\"n\": 9, \"k\": 5}}]"
+    },
+    {
+      "id": 43324,
+      "split_kind": "id",
+      "query": "Fetch the list of public order crimes in the West Midlands Police for February 2023 that have no specified location. Also, retrieve the list of public order crimes in the same police force for March 2023.",
+      "gold": "[{\"name\": \"crimes_with_no_location\", \"arguments\": {\"date\": \"2023-02\", \"force\": \"west-midlands\", \"category\": \"public-order\"}}, {\"name\": \"crimes_with_no_location\", \"arguments\": {\"date\": \"2023-03\", \"force\": \"west-midlands\", \"category\": \"public-order\"}}]",
+      "base": "[\n  {\n    \"name\": \"crimes_with_no_location\",\n    \"arguments\": {\n      \"date\": \"2023-02\",\n      \"force\": \"west-midlands\",\n      \"category\": \"public-order\"\n    }\n  },\n  {\n    \"name\": \"crimes_with_no_location\",\n    \"arguments\": {\n      \"date\": \"2023-03\",\n      \"force\": \"west-midlands\",\n      \"category\": \"public-order\"\n    }\n  }",
+      "finetuned": "[{\"name\": \"crimes_with_no_location\", \"arguments\": {\"date\": \"2023-02\", \"force\": \"west-midlands\", \"category\": \"public-order\"}}, {\"name\": \"crimes_with_no_location\", \"arguments\": {\"date\": \"2023-03\", \"force\": \"west-midlands\", \"category\": \"public-order\"}}]"
+    },
+    {
+      "id": 28989,
+      "split_kind": "ood",
+      "query": "Can you count the occurrences of numbers in this list: [1, 2, 2, 3, 3, 3, 4, 4, 4, 4]? Also, check if the string '(())[]' has valid parentheses.",
+      "gold": "[{\"name\": \"count_occurrences\", \"arguments\": {\"lst\": [1, 2, 2, 3, 3, 3, 4, 4, 4, 4]}}, {\"name\": \"is_valid_parentheses\", \"arguments\": {\"s\": \"(())[]\"}}]",
+      "base": "```json\n[\n  {\n    \"name\": \"count_occurrences\",\n    \"arguments\": {\n      \"lst\": \"[1, 2, 2, 3, 3, 3, 4, 4, 4, 4]\"\n    }\n  },\n  {\n    \"name\": \"is_valid_parentheses\",\n    \"arguments\": {\n      \"s\": \"(())[]\"\n    }\n  }\n]\n```",
+      "finetuned": "[{\"name\": \"count_occurrences\", \"arguments\": {\"lst\": [1, 2, 2, 3, 3, 3, 4, 4, 4, 4]}}, {\"name\": \"is_valid_parentheses\", \"arguments\": {\"s\": \"(())[]\"}}]"
+    },
+    {
+      "id": 41279,
+      "split_kind": "ood",
+      "query": "Get the death count of COVID-19 for the county of Los Angeles, California, United States on April 1, 2022 and find information about the drug Ibuprofen.",
+      "gold": "[{\"name\": \"v1_covid19\", \"arguments\": {\"type\": \"deaths\", \"country\": \"United States\", \"county\": \"Los Angeles\", \"region\": \"California\", \"date\": \"2022-04-01\"}}, {\"name\": \"drug_info\", \"arguments\": {\"drug\": \"Ibuprofen\"}}]",
+      "base": "[\n  {\n    \"name\": \"v1_covid19\",\n    \"arguments\": {\n      \"type\": \"deaths\",\n      \"country\": \"united states\",\n      \"county\": \"los angeles\",\n      \"date\": \"2022-04-01\"\n    }\n  },\n  {\n    \"name\": \"drug_info\",\n    \"arguments\": {\n      \"drug\": \"ibuprofen\"\n    }\n  }\n]",
+      "finetuned": "[{\"name\": \"v1_covid19\", \"arguments\": {\"type\": \"deaths\", \"country\": \"United States\", \"county\": \"Los Angeles\", \"region\": \"California\", \"date\": \"2022-04-01\"}}, {\"name\": \"drug_info\", \"arguments\": {\"drug\": \"ibuprofen\"}}]"
+    },
+    {
+      "id": 51525,
+      "split_kind": "ood",
+      "query": "Calculate the standard deviation for the list of numbers [10.0, 20.0, 30.0, 40.0, 50.0] and determine if a person can attend all meetings given the intervals [[1, 2], [3, 4], [5, 6]]",
+      "gold": "[{\"name\": \"std_deviation\", \"arguments\": {\"numbers\": [10.0, 20.0, 30.0, 40.0, 50.0]}}, {\"name\": \"can_attend_all_meetings\", \"arguments\": {\"intervals\": [[1, 2], [3, 4], [5, 6]]}}]",
+      "base": "```json\n[\n  {\"name\": \"calculate_standard_deviation\", \"arguments\": {\"numbers\": \"[10.0, 20.0, 30.0, 40.0, 50.0]\"}},\n  {\"name\": \"can_attend_all_meetings\", \"arguments\": {\"intervals\": \"[[1, 2], [3, 4], [5, 6]]\"}}\n]\n```",
+      "finetuned": "[{\"name\": \"calculate_standard_deviation\", \"arguments\": {\"numbers\": [10.0, 20.0, 30.0, 40.0, 50.0]}}, {\"name\": \"can_attend_all_meetings\", \"arguments\": {\"intervals\": [[1, 2], [3, 4], [5, 6]]}}]"
+    },
+    {
+      "id": 43355,
+      "split_kind": "id",
+      "query": "Find the movie 'Inception' and retrieve the results from page 1. Also, find the TV show 'Stranger Things' and get the results from page 2.",
+      "gold": "[{\"name\": \"search\", \"arguments\": {\"title\": \"Inception\", \"page\": 1}}, {\"name\": \"search\", \"arguments\": {\"title\": \"Stranger Things\", \"page\": 2}}]",
+      "base": "[\n  {\n    \"name\": \"search\",\n    \"arguments\": {\n      \"title\": \"Inception\"\n    }\n  },\n  {\n    \"name\": \"search\",\n    \"arguments\": {\n      \"title\": \"Stranger Things\",\n      \"page\": 2\n    }\n  }\n]",
+      "finetuned": "[{\"name\": \"search\", \"arguments\": {\"title\": \"Inception\", \"page\": 1}}, {\"name\": \"search\", \"arguments\": {\"title\": \"Stranger Things\", \"page\": 2}}]"
+    },
+    {
+      "id": 4467,
+      "split_kind": "id",
+      "query": "I need to find the 5 largest numbers in the list [9, 18, 27, 36, 45, 54, 63, 72, 81]. Also, compute the area of a triangle with a base of 7.8 cm and a height of 5.4 cm. Lastly, what is the total alimony for 4 years if the payor earns $5000 per month and the recipient earns $3000 per month?",
+      "gold": "[{\"name\": \"find_n_largest_numbers\", \"arguments\": {\"nums\": [9, 18, 27, 36, 45, 54, 63, 72, 81], \"n\": 5}}, {\"name\": \"triangle_area\", \"arguments\": {\"base\": 7.8, \"height\": 5.4}}, {\"name\": \"california_alimony\", \"arguments\": {\"payor_monthly_income\": 5000, \"recipient_monthly_income\": 3000, \"duration_years\": 4}}]",
+      "base": "```json\n[\n  {\n    \"name\": \"find_n_largest_numbers\",\n    \"arguments\": {\n      \"nums\": \"[9, 18, 27, 36, 45, 54, 63, 72, 81]\", \n      \"n\": \"5\"\n    }\n  },\n  {\n    \"name\": \"triangle_area\",\n    \"arguments\": {\n      \"base\": 7.8, \n      \"height\": 5.4\n    }\n  },\n  {\n    \"name\": \"california_alimony\",\n    \"arguments\": {\n      \"payor_monthly_income\": 5000, \n      \"recipient_monthly_income\": 3000, \n      \"duration_years\": 4\n    }\n  }\n]\n```",
+      "finetuned": "[{\"name\": \"find_n_largest_numbers\", \"arguments\": {\"nums\": [9, 18, 27, 36, 45, 54, 63, 72, 81], \"n\": 5}}, {\"name\": \"triangle_area\", \"arguments\": {\"base\": 7.8, \"height\": 5.4}}, {\"name\": \"california_alimony\", \"arguments\": {\"payor_monthly_income\": 5000, \"recipient_monthly_income\": 3000, \"duration_years\": 4}}]"
+    },
+    {
+      "id": 24964,
+      "split_kind": "id",
+      "query": "What is the projected value of an initial investment of $5000 with an annual addition of $1000, a return rate of 5%, over 10 years, considering a fluctuating inflation rate of [2%, 1.5%, 1.8%, 2.1%, 2.3%, 2.5%, 2.7%, 2.9%, 3.1%, 3.3%]?",
+      "gold": "[{\"name\": \"project_investment_growth\", \"arguments\": {\"principal\": 5000, \"annual_addition\": 1000, \"years\": 10, \"return_rate\": 0.05, \"inflation\": [0.02, 0.015, 0.018, 0.021, 0.023, 0.025, 0.027, 0.029, 0.031, 0.033], \"inflation_adjusted\": true}}]",
+      "base": "```json\n[\n  {\n    \"name\": \"project_investment_growth\",\n    \"arguments\": {\n      \"principal\": 5000,\n      \"annual_addition\": 1000,\n      \"years\": 10,\n      \"return_rate\": 0.05,\n      \"inflation\": [0.02, 0.015, 0.018, 0.021, 0.023, 0.025, 0.027, 0.029, 0.031, 0.033]\n    }\n  }\n]\n```\n\nThis call to `project_investment_growth` will project the growth of the investment over the specified number of years, considering the provided inflation rates.",
+      "finetuned": "[{\"name\": \"project_investment_growth\", \"arguments\": {\"principal\": 5000, \"annual_addition\": 1000, \"years\": 10, \"return_rate\": 0.05, \"inflation\": [0.02, 0.015, 0.018, 0.021, 0.023, 0.025, 0.027, 0.029, 0.031, 0.033], \"inflation_adjusted\": true}}]"
+    },
+    {
+      "id": 47493,
+      "split_kind": "id",
+      "query": "How would you format the range string for the numbers between 55 and 55?",
+      "gold": "[{\"name\": \"get_range\", \"arguments\": {\"start\": 55, \"end\": 55}}]",
+      "base": "[]",
+      "finetuned": "[{\"name\": \"get_range\", \"arguments\": {\"start\": 55, \"end\": 55}}]"
+    }
+  ],
+  "hurt": [
+    {
+      "id": 2154,
+      "split_kind": "ood",
+      "query": "Capture a screenshot of the New York Times homepage at a resolution of 1920x1080.",
+      "gold": "[{\"name\": \"take_image_screenshot\", \"arguments\": {\"width\": 1920, \"url\": \"https://www.nytimes.com\", \"height\": 1080}}]",
+      "base": "[\n  {\n    \"name\": \"take_image_screenshot\",\n    \"arguments\": {\n      \"width\": \"1920\",\n      \"height\": \"1080\",\n      \"url\": \"https://www.nytimes.com\"\n    }\n  }\n]",
+      "finetuned": "[{\"name\": \"take_image_screenshot\", \"arguments\": {\"width\": 1920, \"url\": \"https://www.nytimes.com\"}}]"
+    },
+    {
+      "id": 22709,
+      "split_kind": "id",
+      "query": "I need the net share purchase activity for Microsoft Corp. (MSFT) and the option fundamentals for Amazon.com Inc. (AMZN). Also, what's the current rate for CAD to AUD?",
+      "gold": "[{\"name\": \"stock_net_share_purchase_activity\", \"arguments\": {\"symbol\": \"MSFT\"}}, {\"name\": \"quote_get_option_fundamentals\", \"arguments\": {\"symbol\": \"AMZN\"}}, {\"name\": \"forex_quotes\", \"arguments\": {\"target\": \"AUD\", \"source\": \"CAD\"}}]",
+      "base": "Here is the JSON array of tool calls that fulfill the user's request:\n\n[\n  {\n    \"name\": \"stock_net_share_purchase_activity\",\n    \"arguments\": {\n      \"symbol\": \"MSFT\"\n    }\n  },\n  {\n    \"name\": \"quote_get_option_fundamentals\",\n    \"arguments\": {\n      \"symbol\": \"AMZN\"\n    }\n  },\n  {\n    \"name\": \"forex_quotes\",\n    \"arguments\": {\n      \"target\": \"AUD\",\n      \"source\": \"CAD\"\n    }\n  }\n]",
+      "finetuned": "[{\"name\": \"stock_net_share_purchase_activity\", \"arguments\": {\"symbol\": \"MSFT\"}}, {\"name\": \"quote_get_option_fundamentals\", \"arguments\": {\"symbol\": \"AMZN\"}}, {\"name\": \"forex_quotes\", \"arguments\": {\"target\": \"CAD\", \"source\": \"AUD\"}}]"
+    },
+    {
+      "id": 10519,
+      "split_kind": "id",
+      "query": "I need to find a project manager in Sydney with Agile experience. Also, can you locate a construction company in Melbourne?",
+      "gold": "[{\"name\": \"search\", \"arguments\": {\"query\": \"project manager Agile Sydney\", \"type\": \"person\"}}, {\"name\": \"search\", \"arguments\": {\"query\": \"construction company Melbourne\", \"type\": \"company\"}}]",
+      "base": "[\n  {\n    \"name\": \"search\",\n    \"arguments\": {\n      \"query\": \"project manager Sydney Agile\",\n      \"type\": \"person\"\n    }\n  },\n  {\n    \"name\": \"search\",\n    \"arguments\": {\n      \"query\": \"construction company Melbourne\",\n      \"type\": \"company\"\n    }\n  }\n]",
+      "finetuned": "[{\"name\": \"search\", \"arguments\": {\"query\": \"project manager Sydney Agile\", \"type\": \"person\"}}, {\"name\": \"search\", \"arguments\": {\"query\": \"construction company Melbourne\"}}]"
+    },
+    {
+      "id": 24938,
+      "split_kind": "id",
+      "query": "Create a password of length 10 without special characters.",
+      "gold": "[{\"name\": \"generate_password\", \"arguments\": {\"length\": 10, \"include_special\": false}}]",
+      "base": "```json\n[\n  {\n    \"name\": \"generate_password\",\n    \"arguments\": {\n      \"length\": 10,\n      \"include_special\": false\n    }\n  }\n]\n```",
+      "finetuned": "[{\"name\": \"generate_password\", \"arguments\": {\"length\": 10}}]"
+    },
+    {
+      "id": 8797,
+      "split_kind": "ood",
+      "query": "Generate a rewritten version of the article 'The History of the Internet' in English and Spanish.",
+      "gold": "[{\"name\": \"generate\", \"arguments\": {\"lang\": \"en\", \"article\": \"The History of the Internet\"}}, {\"name\": \"generate\", \"arguments\": {\"lang\": \"es\", \"article\": \"The History of the Internet\"}}]",
+      "base": "[\n  {\n    \"name\": \"generate\",\n    \"arguments\": {\n      \"lang\": \"en\",\n      \"article\": \"The History of the Internet\"\n    }\n  },\n  {\n    \"name\": \"generate\",\n    \"arguments\": {\n      \"lang\": \"es\",\n      \"article\": \"The History of the Internet\"\n    }\n  }\n]",
+      "finetuned": "[{\"name\": \"generate\", \"arguments\": {\"lang\": \"en\", \"article\": \"The History of the Internet\"}}]"
+    },
+    {
+      "id": 10950,
+      "split_kind": "id",
+      "query": "Fetch expert level exercises that involve strength training, and determine the calories burned during 40 minutes of hiking for someone weighing 200 pounds.",
+      "gold": "[{\"name\": \"v1_exercises\", \"arguments\": {\"type\": \"strength\", \"difficulty\": \"expert\"}}, {\"name\": \"v1_caloriesburned\", \"arguments\": {\"activity\": \"hiking\", \"weight\": 200, \"duration\": \"40\"}}]",
+      "base": "```json\n[\n  {\n    \"name\": \"v1_exercises\",\n    \"arguments\": {\n      \"type\": \"strength\",\n      \"difficulty\": \"expert\"\n    }\n  },\n  {\n    \"name\": \"v1_caloriesburned\",\n    \"arguments\": {\n      \"activity\": \"hiking\",\n      \"duration\": \"40\",\n      \"weight\": \"200\"\n    }\n  }\n]\n```",
+      "finetuned": "[{\"name\": \"v1_exercises\", \"arguments\": {\"type\": \"strength\"}}, {\"name\": \"v1_caloriesburned\", \"arguments\": {\"activity\": \"hiking\", \"weight\": 200, \"duration\": \"40\"}}]"
+    },
+    {
+      "id": 49907,
+      "split_kind": "ood",
+      "query": "I'm looking for addresses in the area with postcodes 1234 and 567. Can you also help me find information about a city in France with a population of at least 500,000?",
+      "gold": "[{\"name\": \"get_addresses_by_postcode\", \"arguments\": {\"cp4\": \"1234\", \"cp3\": \"567\"}}, {\"name\": \"v1_city\", \"arguments\": {\"min_population\": 500000, \"country\": \"FR\"}}]",
+      "base": "```json\n[\n  {\n    \"name\": \"get_addresses_by_postcode\",\n    \"arguments\": {\n      \"cp4\": \"1234\",\n      \"cp3\": \"4\"\n    }\n  },\n  {\n    \"name\": \"get_addresses_by_postcode\",\n    \"arguments\": {\n      \"cp4\": \"567\",\n      \"cp3\": \"567\"\n    }\n  },\n  {\n    \"name\": \"v1_city\",\n    \"arguments\": {\n      \"min_population\": \"500000\",\n      \"country\": \"FR\"\n    }\n  }\n]\n```",
+      "finetuned": "[{\"name\": \"get_addresses_by_postcode\", \"arguments\": {\"cp4\": \"1234\", \"cp3\": \"4\"}}, {\"name\": \"get_addresses_by_postcode\", \"arguments\": {\"cp4\": \"567\", \"cp3\": \"6\"}}, {\"name\": \"v1_city\", \"arguments\": {\"country\": \"FR\"}}]"
+    },
+    {
+      "id": 50182,
+      "split_kind": "id",
+      "query": "Check if the string '(a + b) * [c / d]' contains valid parentheses, and also check the validity of the string '[{()}]'",
+      "gold": "[{\"name\": \"is_valid_parentheses\", \"arguments\": {\"s\": \"(a + b) * [c / d]\"}}, {\"name\": \"is_valid_parentheses\", \"arguments\": {\"s\": \"[{()}]\"}}]",
+      "base": "```json\n[\n  {\n    \"name\": \"is_valid_parentheses\",\n    \"arguments\": {\n      \"s\": \"(a + b) * [c / d]\"\n    }\n  },\n  {\n    \"name\": \"is_valid_parentheses\",\n    \"arguments\": {\n      \"s\": \"[{()}]\"\n    }\n  }\n]\n```",
+      "finetuned": "[{\"name\": \"is_valid_parentheses\", \"arguments\": {\"s\": \"(a + b) * [c / d\"}}, {\"name\": \"is_valid_parentheses\", \"arguments\": {\"s\": \"[{()}\"}}]"
+    },
+    {
+      "id": 9238,
+      "split_kind": "id",
+      "query": "Retrieve box office information for the movie titled 'Inception'.",
+      "gold": "[{\"name\": \"title_v2_get_business\", \"arguments\": {\"tconst\": \"tt1375666\"}}]",
+      "base": "```json\n[\n  {\n    \"name\": \"title_v2_get_business\",\n    \"arguments\": {\n      \"tconst\": \"tt1375666\"\n    }\n  }\n]\n```",
+      "finetuned": "[{\"name\": \"title_v2_get_business\", \"arguments\": {\"tconst\": \"tt1375668\"}}]"
+    },
+    {
+      "id": 39971,
+      "split_kind": "ood",
+      "query": "I am interested in the most active stocks and the biggest gap losers on the LSE. Also, please provide kline data for ETHUSDT in 15-minute intervals from last week.",
+      "gold": "[{\"name\": \"market_most_actives\", \"arguments\": {\"start\": 0}}, {\"name\": \"market_get_movers\", \"arguments\": {\"exchange\": \"LSE\", \"name\": \"gap_loosers\"}}, {\"name\": \"kline_candlestick_data\", \"arguments\": {\"interval\": \"15m\", \"symbol\": \"ETHUSDT\", \"limit\": 500}}]",
+      "base": "```json\n[\n  {\n    \"name\": \"market_most_actives\",\n    \"arguments\": {\n      \"start\": \"0\"\n    }\n  },\n  {\n    \"name\": \"market_get_movers\",\n    \"arguments\": {\n      \"exchange\": \"LSE\",\n      \"name\": \"percent_gap_loosers\"\n    }\n  },\n  {\n    \"name\": \"kline_candlestick_data\",\n    \"arguments\": {\n      \"symbol\": \"ETHUSDT\",\n      \"interval\": \"15m\",\n      \"starttime\": \"2023-01-01T00:00:00Z\",\n      \"endtime\": \"2023-01-08T23:59:59Z\"\n    }\n  }\n]\n```",
+      "finetuned": "[{\"name\": \"market_most_actives\", \"arguments\": {}}, {\"name\": \"market_get_movers\", \"arguments\": {\"exchange\": \"LSE\", \"name\": \"percent_gap_loosers\"}}, {\"name\": \"kline_candlestick_data\", \"arguments\": {\"interval\": \"15m\", \"symbol\": \"ETHUSDT\"}}]"
+    },
+    {
+      "id": "hc-019",
+      "split_kind": "handcrafted",
+      "query": "Search the web for 'llama 3 license terms'.",
+      "gold": "[{\"name\": \"web_search\", \"arguments\": {\"query\": \"llama 3 license terms\"}}]",
+      "base": "[\n  {\n    \"name\": \"web_search\",\n    \"arguments\": {\n      \"query\": \"llama 3 license terms\"\n    }\n  }\n]",
+      "finetuned": "[{\"name\": \"web_search\", \"arguments\": {\"query\": \"llama 3 license terms\", \"num_results\": 10}}]"
+    },
+    {
+      "id": 17581,
+      "split_kind": "ood",
+      "query": "What information can you provide about the video at https://www.tiktok.com/t/ZTk1NzYwNQ==/? I'm particularly interested in the author's details.",
+      "gold": "[{\"name\": \"full_info_with_url\", \"arguments\": {\"url\": \"https://www.tiktok.com/t/ZTk1NzYwNQ==/\"}}]",
+      "base": "[\n  {\n    \"name\": \"full_info_with_url\",\n    \"arguments\": {\n      \"url\": \"https://www.tiktok.com/t/ZTk1NzYwNQ==/\"\n    }\n  }\n]",
+      "finetuned": "[{\"name\": \"full_info_with_url\", \"arguments\": {\"url\": \"https://www.tiktok.com/t/ZTk1NzYwNQ==\"}}]"
+    },
+    {
+      "id": 30041,
+      "split_kind": "ood",
+      "query": "Could you fetch the infobox data for the Wikipedia page on 'Albert Einstein', and generate a QR code for the URL 'https://www.example.com/event?id=12345'?",
+      "gold": "[{\"name\": \"infobox\", \"arguments\": {\"wikiurl\": \"https://en.wikipedia.org/wiki/Albert_Einstein\"}}, {\"name\": \"generate_qr\", \"arguments\": {\"url\": \"https://www.example.com/event?id=12345\"}}]",
+      "base": "```json\n[\n  {\n    \"name\": \"infobox\",\n    \"arguments\": {\n      \"wikiurl\": \"https://en.wikipedia.org/wiki/Albert_Einstein\"\n    }\n  },\n  {\n    \"name\": \"generate_qr\",\n    \"arguments\": {\n      \"url\": \"https://www.example.com/event?id=12345\"\n    }\n  }\n]\n```",
+      "finetuned": "[{\"name\": \"infobox\", \"arguments\": {\"wikiurl\": \"https://www.wikipedia.org/wiki/Albert_Einstein\", \"withname\": true}}, {\"name\": \"generate_qr\", \"arguments\": {\"url\": \"https://www.example.com/event?id=12345\"}}]"
+    },
+    {
+      "id": 17763,
+      "split_kind": "ood",
+      "query": "Get the categories for the UK market and the details of order '54321'.",
+      "gold": "[{\"name\": \"categories\", \"arguments\": {\"country\": \"UK\"}}, {\"name\": \"get_order\", \"arguments\": {\"is_id\": \"54321\"}}]",
+      "base": "```json\n[\n  {\n    \"name\": \"categories\",\n    \"arguments\": {\n      \"country\": \"UK\"\n    }\n  },\n  {\n    \"name\": \"get_order\",\n    \"arguments\": {\n      \"is_id\": \"54321\"\n    }\n  }\n]\n```",
+      "finetuned": "[{\"name\": \"categories\", \"arguments\": {\"locale\": \"en-GB\"}}, {\"name\": \"get_order\", \"arguments\": {\"is_id\": \"54321\"}}]"
+    },
+    {
+      "id": 50675,
+      "split_kind": "ood",
+      "query": "What are the addresses in the area with postcodes 8910 and 1112? I also want to find a city in Australia with a population between 1,000,000 and 2,000,000.",
+      "gold": "[{\"name\": \"get_addresses_by_postcode\", \"arguments\": {\"cp4\": \"8910\", \"cp3\": \"1112\"}}, {\"name\": \"v1_city\", \"arguments\": {\"min_population\": 1000000, \"max_population\": 2000000, \"country\": \"AU\"}}]",
+      "base": "[\n  {\n    \"name\": \"get_addresses_by_postcode\",\n    \"arguments\": {\n      \"cp4\": \"8910\",\n      \"cp3\": \"1112\"\n    }\n  },\n  {\n    \"name\": \"v1_city\",\n    \"arguments\": {\n      \"country\": \"AU\",\n      \"min_population\": \"1000000\",\n      \"max_population\": \"2000000\"\n    }\n  }\n]",
+      "finetuned": "[{\"name\": \"get_addresses_by_postcode\", \"arguments\": {\"cp4\": \"8910\", \"cp3\": \"1112\"}}, {\"name\": \"v1_city\", \"arguments\": {\"country\": \"AU\"}}]"
+    }
+  ]
+}
