@@ -108,12 +108,13 @@ def run(cfg: EvalConfig) -> dict:
                 verdict = json.loads(re.search(r"\{.*\}", raw, re.DOTALL).group(0))
                 break
             except Exception as exc:  # pragma: no cover
-                if "RESOURCE_EXHAUSTED" in str(exc) or "429" in str(exc):
-                    wait = 65  # wait past the full rolling 1-minute quota window, not a partial backoff
+                msg = str(exc)
+                if ("RESOURCE_EXHAUSTED" in msg or "429" in msg) and attempt < 4:
+                    wait = 65  # wait past the full rolling 1-minute quota window
                     print(f"[judge] rate limited, waiting {wait}s (attempt {attempt + 1}/5)")
                     time.sleep(wait)
                     continue
-                print(f"[judge] skipped one example ({exc})")
+                print(f"[judge] skipped one example ({msg[:600]})")
                 break
         if verdict is None:
             continue
