@@ -15,14 +15,15 @@ Everything runs on a free Colab (or Kaggle) T4 GPU through one notebook. I don't
 so the whole pipeline had to work that way.
 
 > **Result:**
-> Fine-tuned Llama-3.2-3B with QLoRA — exact tool-call match improved from **70.6% → 81.4%**
-> overall, and from **72.2% → 80.8%** on tool schemas held out of training entirely (OOD).
-> Function-name F1 rose from 96.4% → 98.5%, JSON validity from 97.0% → 98.7%. A blind LLM-judge
+> Fine-tuned Llama-3.2-3B with QLoRA — exact tool-call match improved from **70.4% → 80.1%**
+> overall, and from **71.9% → 79.5%** on tool schemas held out of training entirely (OOD).
+> Function-name F1 rose from 96.4% → 98.1%, JSON validity from 97.0% → 98.4%. A blind LLM-judge
 > evaluation corroborated this independently: the fine-tuned model never lost to the base model
 > across a 20-example sample (0% base win rate, 15% fine-tuned win rate, 85% ties). Full pipeline:
-> hyperparameter sweep, MLflow tracking, in-distribution + out-of-distribution + LLM-judge
-> evaluation, and a containerized A/B inference API. (Catastrophic-forgetting check is designed
-> but not yet run — see `ftpipe forgetting` below.)
+> MLflow tracking, in-distribution + out-of-distribution + LLM-judge evaluation, and a
+> containerized A/B inference API. (Hyperparameter sweep and catastrophic-forgetting check are
+> implemented but didn't finish this pass — see `reports/experiment_report.md` for the honest
+> writeup, including where fine-tuning helped and where it regressed.)
 
 ---
 
