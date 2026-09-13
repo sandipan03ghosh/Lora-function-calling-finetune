@@ -1,21 +1,15 @@
-# Evaluation config. Runs in Colab:
-#   python -m ftpipe.cli evaluate --config configs/eval.yaml --base <model> [--adapter <path>] --tag <base|finetuned>
-
 benchmarks:
-  - data/processed/test_id.jsonl      # in-distribution held-out test
-  - data/processed/test_ood.jsonl     # APIs whose tool names were held out of training
-  - data/benchmark/handcrafted.jsonl  # hand-written edge cases
-
+- data/processed/test_id.jsonl
+- data/processed/test_ood.jsonl
+- data/benchmark/handcrafted.jsonl
 max_new_tokens: 512
 batch_size: 8
 seed: 42
 output_dir: outputs/eval
-
 judge:
-  provider: gemini                    # none | anthropic | openai | gemini  (set the matching key as a Colab secret)
-  model: gemini-2.5-flash             # e.g. claude-3-5-haiku-20241022 | gpt-4o-mini | gemini-2.5-flash
+  provider: gemini
+  model: gemini-flash-lite-latest
   n_examples: 20
-
 forgetting:
   arc_n: 100
   hellaswag_n: 100
