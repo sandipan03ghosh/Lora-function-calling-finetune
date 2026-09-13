@@ -109,7 +109,7 @@ def run(cfg: EvalConfig) -> dict:
                 break
             except Exception as exc:  # pragma: no cover
                 if "RESOURCE_EXHAUSTED" in str(exc) or "429" in str(exc):
-                    wait = 20 * (attempt + 1)
+                    wait = 65  # wait past the full rolling 1-minute quota window, not a partial backoff
                     print(f"[judge] rate limited, waiting {wait}s (attempt {attempt + 1}/5)")
                     time.sleep(wait)
                     continue
@@ -117,7 +117,7 @@ def run(cfg: EvalConfig) -> dict:
                 break
         if verdict is None:
             continue
-        time.sleep(13)  # free-tier gemini/anthropic/openai limits are a few requests/minute
+        time.sleep(20)  # stay comfortably under free-tier 5-requests/minute quotas
 
         ft_score = verdict["score_a"] if swap else verdict["score_b"]
         base_score = verdict["score_b"] if swap else verdict["score_a"]
