@@ -1,0 +1,10 @@
+{
+  "n": 20,
+  "provider": "gemini",
+  "model": "gemini-flash-lite-latest",
+  "mean_base_score": 4.55,
+  "mean_finetuned_score": 4.8,
+  "finetuned_win_rate": 0.15,
+  "base_win_rate": 0.0,
+  "tie_rate": 0.85
+}

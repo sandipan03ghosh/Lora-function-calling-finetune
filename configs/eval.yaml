@@ -1,4 +1,4 @@
-# Evaluation config. Runs in Colab:
+# Evaluation config. Runs in Colab / Kaggle:
 #   python -m ftpipe.cli evaluate --config configs/eval.yaml --base <model> [--adapter <path>] --tag <base|finetuned>
 
 benchmarks:
@@ -12,8 +12,9 @@ seed: 42
 output_dir: outputs/eval
 
 judge:
-  provider: gemini                    # none | anthropic | openai | gemini  (set the matching key as a Colab secret)
-  model: gemini-flash-lite-latest     
+  provider: gemini                    # none | anthropic | openai | gemini  (set the matching key as a secret)
+  # lite tier: established models 404 for new keys, and the newest ones have tiny free quotas
+  model: gemini-flash-lite-latest
   n_examples: 20
 
 forgetting:
